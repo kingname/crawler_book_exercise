@@ -404,12 +404,16 @@ def middleware_ua(page):
 # /exercise_middleware_retry_backend/param/<i>  POST，date 错了返回"参数错误"
 # /exercise_middleware_retry_backend/404/<i>     POST，date 错了跳转 /404.html
 # -------------------------------------------------------------------
-def _expected_date_for_retry() -> str:
-    """按 50% 概率随机返回今天或昨天的日期字符串。"""
+def _expected_date_for_retry(page: int) -> str:
+    """按页数稳定决定服务器期望的 date：奇数页今天，偶数页昨天。
+
+    这样爬虫先用「今天」试，遇到错误再用「昨天」改 body 重试，
+    对同一 page 的第二次请求一定能成功——正是书中重试中间件要演示的场景。
+    """
     today = datetime.date.today()
-    if random.random() < 0.5:
-        return str(today)
-    return str(today - datetime.timedelta(days=1))
+    if page % 2 == 0:
+        return str(today - datetime.timedelta(days=1))
+    return str(today)
 
 
 @app.route('/exercise_middleware_retry.html')
@@ -431,7 +435,7 @@ def middleware_retry_page():
 def middleware_retry_param(page):
     data = request.get_json(silent=True) or {}
     date = data.get('date', '')
-    if date != _expected_date_for_retry():
+    if date != _expected_date_for_retry(page):
         return '参数错误'
     return f'第 {page} 页的内容：通关口令第 {page} 页（param 模式）'
 
@@ -440,7 +444,7 @@ def middleware_retry_param(page):
 def middleware_retry_404(page):
     data = request.get_json(silent=True) or {}
     date = data.get('date', '')
-    if date != _expected_date_for_retry():
+    if date != _expected_date_for_retry(page):
         return redirect('/404.html', code=302)
     return f'第 {page} 页的内容：通关口令第 {page} 页（404 模式）'
 

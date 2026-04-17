@@ -5,13 +5,26 @@ selenium / scrapy 相关题目只检查页面存在性 + 页面含关键字。
 """
 import datetime
 import json
+import os
 import re
 import sys
 import time
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
-BASE = 'http://127.0.0.1:5000'
+BASE = os.environ.get('EXERCISE_BASE', 'http://127.0.0.1:5000').rstrip('/')
+
+# 给默认 get/post 套一层重试，抵御 HTTPS 网络抖动（EOF、502 等）
+_retry = Retry(total=3, backoff_factor=0.5,
+               status_forcelist=(502, 503, 504),
+               allowed_methods=frozenset(['GET', 'POST']))
+_default_session = requests.Session()
+_default_session.mount('http://', HTTPAdapter(max_retries=_retry))
+_default_session.mount('https://', HTTPAdapter(max_retries=_retry))
+requests.get = _default_session.get
+requests.post = _default_session.post
 
 
 def _ok(msg):  print(f'  ✓ {msg}')
