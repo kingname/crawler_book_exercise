@@ -11,7 +11,41 @@ python app.py   # 监听 127.0.0.1:5000
 
 打开 <http://127.0.0.1:5000/> 即可看到入口页。
 
-## 生产部署
+## 生产部署（Docker，推荐）
+
+```bash
+# 1. 拉代码到服务器
+ssh kingname@34.150.3.217
+git clone https://github.com/kingname/crawler_book_exercise.git exercise_app
+cd exercise_app
+
+# 2. （可选）设置 session 签名密钥
+echo "FLASK_SECRET_KEY=$(openssl rand -hex 32)" > .env
+
+# 3. 构建并启动
+docker compose up -d --build
+
+# 4. 验证容器健康
+docker compose ps
+curl http://127.0.0.1:5000/
+
+# 5. 更新 nginx 反代并 reload
+sudo cp exercise.kingname.info.conf /etc/nginx/sites-available/
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+容器绑定 `127.0.0.1:5000`，只接受宿主机流量，nginx 反代承担 TLS。
+验证码图片是容器内的临时文件，超过 10 分钟自动清理，无需持久化卷。
+
+更新代码：
+
+```bash
+cd ~/exercise_app
+git pull
+docker compose up -d --build
+```
+
+## 传统部署（systemd + gunicorn，备选）
 
 ### 1. 上传代码到服务器
 

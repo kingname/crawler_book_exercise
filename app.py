@@ -28,7 +28,9 @@ CAPTCHA_DIR = os.path.join(BASE_DIR, 'static', 'captcha')
 os.makedirs(CAPTCHA_DIR, exist_ok=True)
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
-app.secret_key = 'exercise.kingname.info-python-spider-book'
+app.secret_key = os.environ.get(
+    'FLASK_SECRET_KEY', 'exercise.kingname.info-python-spider-book'
+)
 
 
 # -------------------------------------------------------------------
@@ -260,14 +262,27 @@ def _generate_captcha_text(length: int = 4) -> str:
     return ''.join(random.choice(CAPTCHA_CHARS) for _ in range(length))
 
 
+_FONT_CANDIDATES = (
+    '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',
+    '/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf',
+    '/System/Library/Fonts/Supplemental/Arial.ttf',
+)
+
+
+def _load_captcha_font(size: int = 32):
+    for path in _FONT_CANDIDATES:
+        try:
+            return ImageFont.truetype(path, size)
+        except OSError:
+            continue
+    return ImageFont.load_default()
+
+
 def _render_captcha_image(text: str) -> bytes:
     width, height = 160, 50
     img = Image.new('RGB', (width, height), color=(245, 245, 250))
     draw = ImageDraw.Draw(img)
-    try:
-        font = ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial.ttf', 32)
-    except OSError:
-        font = ImageFont.load_default()
+    font = _load_captcha_font(32)
     # 干扰点
     for _ in range(400):
         draw.point(

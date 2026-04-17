@@ -1,0 +1,25 @@
+.git
+.gitignore
+.github
+.DS_Store
+
+# 开发辅助物
+SourceCodeOfBook/
+book_text/
+extract_docx.py
+regression_test.py
+
+# 部署文档与 systemd 样板不需要进容器
+DEPLOY.md
+exercise.service
+exercise.kingname.info.conf
+
+# Python artifacts
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+# 动态生成的验证码图片
+static/captcha/*.png
