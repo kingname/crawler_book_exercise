@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>异步加载高级练习</title>
+  <style>
+    body { font-family: -apple-system, 'PingFang SC', sans-serif; max-width: 720px; margin: 30px auto; padding: 0 20px; color: #222; line-height: 1.8; }
+    .content { background: #f5f5fa; border-left: 3px solid #6366f1; padding: 18px 22px; margin: 18px 0; border-radius: 3px; min-height: 28px; font-size: 16px; }
+    .hint { font-size: 13px; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <h1>异步加载高级练习</h1>
+  <p class="hint">
+    这个页面的内容通过 AJAX 加载，请求头中需要包含精确到毫秒的 <code>ReqTime</code>，
+    请求体中需要一个 <code>sum</code> 参数。直接用 requests 构造需要先逆向下面的 JavaScript。
+    如果不想逆向，可以用 Selenium + ChromeDriver 等待 class 为 <code>content</code> 的元素里出现「通关」两个字。
+  </p>
+
+  <div class="content">加载中……</div>
+
+  <script type="text/javascript">
+    (function() {
+      // 把 ReqTime 取为当前毫秒时间戳；sum 的值在这里进行了一些"花式"计算
+      var reqTime = new Date().getTime();
+
+      // 混淆性的 sum 计算：其实结果总是 '6'
+      function calcSum(t) {
+        var a = String(t).split('').map(function(c){ return parseInt(c, 10); });
+        var s = a.reduce(function(x, y){ return (x + y) % 7; }, 0);
+        return String((s + 6 - s) | 0);  // 无论如何总是 6
+      }
+      var sum = calcSum(reqTime);
+
+      fetch('/ajax_5_backend', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'ReqTime': String(reqTime)
+        },
+        body: JSON.stringify({sum: sum})
+      }).then(function(r){ return r.json(); }).then(function(d){
+        // 人为延迟一点点，让 Selenium WebDriverWait 有意义
+        setTimeout(function(){
+          document.querySelector('.content').innerText = d.code;
+        }, 1500);
+      }).catch(function(err){
+        document.querySelector('.content').innerText = '请求失败：' + err;
+      });
+    })();
+  </script>
+</body>
+</html>

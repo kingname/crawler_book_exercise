@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}练习页{% endblock %} — Python爬虫练习网站</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+           margin: 0; background: #f7f8fb; color: #222; line-height: 1.7; }
+    .nav { background: #2b3140; color: #e8ebf1; padding: 10px 24px; font-size: 13px; }
+    .nav a { color: #8fa3d1; text-decoration: none; }
+    .wrap { max-width: 820px; margin: 32px auto; padding: 28px 36px;
+            background: #fff; border: 1px solid #e6e8ef; border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+    h1, h2, h3 { color: #1a1d29; }
+    h1 { font-size: 20px; margin-top: 0; }
+    .hint { font-size: 13px; color: #6b7280; background: #f3f4f8; padding: 10px 14px;
+            border-left: 3px solid #6366f1; border-radius: 3px; margin: 12px 0; }
+    code, pre { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; }
+    pre { background: #f3f4f8; padding: 12px; border-radius: 4px; overflow-x: auto; }
+    button, input[type=submit] {
+      background: #6366f1; color: #fff; border: 0; padding: 8px 18px; border-radius: 4px; cursor: pointer;
+    }
+    button:hover, input[type=submit]:hover { background: #4f46e5; }
+    input[type=text], input[type=password] {
+      padding: 7px 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px; width: 220px;
+    }
+  </style>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <div class="nav">&gt; <a href="/">exercise.kingname.info</a> / {% block crumb %}{% endblock %}</div>
+  <div class="wrap">
+  {% block body %}{% endblock %}
+  </div>
+</body>
+</html>

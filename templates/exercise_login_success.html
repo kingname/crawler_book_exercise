@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>登录成功</title>
+  <style>
+    body { font-family: -apple-system, 'PingFang SC', sans-serif; max-width: 640px; margin: 50px auto; padding: 0 20px; color: #222; line-height: 1.8; }
+    .success { background: #eef2ff; border: 1px solid #c7d2fe; padding: 22px 26px; border-radius: 8px; }
+    .username { color: #4f46e5; font-weight: 600; }
+    .secret { font-size: 18px; color: #0f172a; margin: 14px 0; }
+    a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <div class="success">
+    <h1>登录成功</h1>
+    <p>欢迎回来，<span class="username">{{ username }}</span>！</p>
+    <p class="secret">通关口令：模拟登录 & Session 保持，你已经掌握。</p>
+    <p><a href="/exercise_logout">退出登录</a></p>
+  </div>
+</body>
+</html>

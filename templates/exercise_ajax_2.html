@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX 练习 2 —— 假异步（数据藏在源代码里）</title>
+  <style>
+    body { font-family: -apple-system, 'PingFang SC', sans-serif; max-width: 720px; margin: 30px auto; padding: 0 20px; color: #222; line-height: 1.8; }
+    .card { background: #f5f5fa; border-left: 3px solid #6366f1; padding: 14px 18px; margin: 14px 0; border-radius: 3px; min-height: 24px; }
+  </style>
+</head>
+<body>
+  <h1>AJAX 练习 2</h1>
+  <p>这个页面看起来像是异步加载的，但其实数据就藏在网页源代码里。打开开发者工具的 Network 选项卡，看看是不是真的有异步请求。</p>
+
+  <div class="card">
+    <div class="content"></div>
+  </div>
+
+  <script type="text/javascript">
+    var secret = '{{ secret|safe }}';
+    var obj = JSON.parse(secret);
+    document.querySelector('.content').innerText = obj.code;
+  </script>
+</body>
+</html>

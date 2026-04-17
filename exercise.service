@@ -1,0 +1,20 @@
+[Unit]
+Description=Python Spider Book Exercise Site (Flask + Gunicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=kingname
+WorkingDirectory=/home/kingname/exercise
+Environment="PATH=/home/kingname/exercise/venv/bin"
+ExecStart=/home/kingname/exercise/venv/bin/gunicorn \
+    --workers 3 \
+    --bind 127.0.0.1:5000 \
+    --access-logfile /var/log/exercise/access.log \
+    --error-logfile /var/log/exercise/error.log \
+    app:app
+Restart=on-failure
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target

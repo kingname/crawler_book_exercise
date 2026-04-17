@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX 练习 1 —— GET + POST 异步加载</title>
+  <style>
+    body { font-family: -apple-system, 'PingFang SC', sans-serif; max-width: 720px; margin: 30px auto; padding: 0 20px; color: #222; line-height: 1.8; }
+    h1 { font-size: 20px; }
+    .card { background: #f5f5fa; border-left: 3px solid #6366f1; padding: 14px 18px; margin: 14px 0; border-radius: 3px; min-height: 24px; }
+    .label { color: #6b7280; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>AJAX 练习 1</h1>
+  <p>下面两块内容通过异步加载的方式填入，请通过浏览器开发者工具分析它们的接口。</p>
+
+  <div class="card">
+    <div class="label">异步 GET 加载（来自 /ajax_1_backend）：</div>
+    <div class="content_get">加载中……</div>
+  </div>
+
+  <div class="card">
+    <div class="label">异步 POST 加载（来自 /ajax_1_postbackend，body: {name, age}）：</div>
+    <div class="content_post">加载中……</div>
+  </div>
+
+  <script>
+    fetch('/ajax_1_backend').then(r => r.json()).then(d => {
+      document.querySelector('.content_get').innerText = d.code;
+    });
+
+    fetch('/ajax_1_postbackend', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({name: '青南', age: 24})
+    }).then(r => r.json()).then(d => {
+      document.querySelector('.content_post').innerText = d.code;
+    });
+  </script>
+</body>
+</html>

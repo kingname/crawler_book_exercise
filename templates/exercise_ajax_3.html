@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX 练习 3 —— 多次串联异步请求</title>
+  <style>
+    body { font-family: -apple-system, 'PingFang SC', sans-serif; max-width: 720px; margin: 30px auto; padding: 0 20px; color: #222; line-height: 1.8; }
+    .card { background: #f5f5fa; border-left: 3px solid #6366f1; padding: 14px 18px; margin: 14px 0; border-radius: 3px; min-height: 24px; }
+    .label { color: #6b7280; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>AJAX 练习 3</h1>
+  <p>最终内容需要经过多次异步请求才能拿到：<br>
+     1) 从页面源代码中提取 <code>secret_2</code>；<br>
+     2) 通过 GET 请求 <code>/ajax_3_backend</code> 获取 <code>secret_1</code>；<br>
+     3) 使用 secret_1 和 secret_2 POST 到 <code>/ajax_3_postbackend</code> 才能拿到最终内容。
+  </p>
+
+  <div class="card">
+    <div class="label">最终内容：</div>
+    <div class="content">加载中……</div>
+  </div>
+
+  <script type="text/javascript">
+    var secret_2 = '{{ secret_2|safe }}';
+
+    fetch('/ajax_3_backend').then(r => r.json()).then(d1 => {
+      var secret_1 = d1.code;
+      fetch('/ajax_3_postbackend', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          name: '青南',
+          age: 24,
+          secret1: secret_1,
+          secret2: secret_2
+        })
+      }).then(r => r.json()).then(d2 => {
+        document.querySelector('.content').innerText = d2.code;
+      });
+    });
+  </script>
+</body>
+</html>

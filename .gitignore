@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+venv/
+.env
+static/captcha/*.png
+!static/captcha/.gitkeep
+.DS_Store
+
+# 开发辅助物：不是网站运行所需
+SourceCodeOfBook/
+book_text/
+extract_docx.py
+
+/tmp/
+*.log

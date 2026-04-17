@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+{% block title %}POST 练习{% endblock %}
+{% block crumb %}exercise_requests_post{% endblock %}
+{% block body %}
+  <h1>练习 4-2：使用 POST 方式获取网页源代码</h1>
+  <div class="hint">
+    这个地址只支持 POST 请求。请使用 <code>requests.post(url, data={...})</code> 或
+    <code>requests.post(url, json={...})</code> 访问，服务端会回显你提交的数据。
+  </div>
+  <p>示例：</p>
+<pre>import requests
+
+data = {'name': 'kingname', 'password': '1234567'}
+
+# Form 形式
+html_form = requests.post('http://exercise.kingname.info/exercise_requests_post', data=data).content.decode()
+
+# JSON 形式
+html_json = requests.post('http://exercise.kingname.info/exercise_requests_post', json=data).content.decode()
+</pre>
+{% endblock %}

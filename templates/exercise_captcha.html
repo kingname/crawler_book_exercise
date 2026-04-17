@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>验证码练习</title>
+  <style>
+    body { font-family: -apple-system, 'PingFang SC', sans-serif; max-width: 440px; margin: 60px auto; padding: 0 20px; color: #222; line-height: 1.8; }
+    .box { background: #fff; border: 1px solid #e6e8ef; padding: 28px 32px; border-radius: 8px; }
+    img { display: block; margin: 12px 0; border: 1px solid #e5e7eb; border-radius: 4px; }
+    input[type=text] { width: 100%; padding: 9px 12px; border: 1px solid #d1d5db; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
+    button { margin-top: 14px; background: #6366f1; color: #fff; border: 0; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+    .hint { font-size: 13px; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>验证码练习</h1>
+    <p class="hint">下图是随机生成的验证码。请用爬虫下载这张图片并识别（或人眼识别），然后 POST 到 <code>/exercise_captcha_check</code>。注意这道题需要使用 <code>requests.Session()</code> 才能正常工作。</p>
+    <img src="{{ captcha_url }}" alt="captcha">
+    <form method="POST" action="/exercise_captcha_check">
+      <input type="text" name="captcha" placeholder="输入验证码（不区分大小写）">
+      <button type="submit">提交</button>
+    </form>
+  </div>
+</body>
+</html>

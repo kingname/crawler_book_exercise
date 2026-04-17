@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>练习网站暂时下线 — Python爬虫开发，从入门到实战</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: #0f1117;
+      min-height: 100vh;
+    }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(99, 102, 241, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.07) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .glow-ring {
+      box-shadow:
+        0 0 0 1px rgba(99, 102, 241, 0.3),
+        0 0 40px rgba(99, 102, 241, 0.15),
+        0 0 80px rgba(99, 102, 241, 0.08);
+    }
+
+    .code-tag {
+      font-family: 'Courier New', monospace;
+    }
+
+    .shimmer {
+      background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.06) 50%,
+        rgba(255,255,255,0) 100%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .pulse-dot {
+      animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .book-title {
+      font-family: 'Noto Serif SC', serif;
+    }
+
+    .divider-line {
+      background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+    }
+  </style>
+</head>
+<body class="grid-bg text-gray-100">
+
+  <!-- 顶部状态栏 -->
+  <div class="border-b border-white/5 bg-white/3 backdrop-blur-sm">
+    <div class="max-w-4xl mx-auto px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2 code-tag text-xs text-gray-500">
+        <span class="text-indigo-400">&gt;_</span>
+        <span>python-spider-exercise</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="pulse-dot w-2 h-2 rounded-full bg-yellow-400 inline-block"></span>
+        <span class="text-xs text-yellow-400/80">维护中</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主体内容 -->
+  <main class="max-w-2xl mx-auto px-6 py-20 flex flex-col items-center text-center">
+
+    <!-- 图标区域 -->
+    <div class="relative mb-10">
+      <div class="w-20 h-20 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 glow-ring flex items-center justify-center">
+        <svg class="w-10 h-10 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+        </svg>
+      </div>
+      <!-- 装饰角标 -->
+      <div class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-yellow-400/20 border border-yellow-400/40 flex items-center justify-center">
+        <svg class="w-3 h-3 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- 书名 -->
+    <div class="mb-3">
+      <span class="inline-block px-3 py-1 text-xs code-tag text-indigo-300/70 bg-indigo-500/10 border border-indigo-500/20 rounded-full">
+        配套练习网站
+      </span>
+    </div>
+    <h1 class="book-title text-2xl sm:text-3xl font-bold text-white mb-2 leading-snug">
+      《Python爬虫开发，从入门到实战》
+    </h1>
+
+    <!-- 分割线 -->
+    <div class="divider-line w-32 h-px my-8"></div>
+
+    <!-- 正文 -->
+    <div class="space-y-5 text-gray-300 text-[15px] leading-relaxed max-w-lg">
+      <p>
+        感谢大家一直以来对本书的支持。
+      </p>
+      <p>
+        由于一些原因，练习网站需要暂时下线。我会尽快恢复上线，请大家稍等。
+      </p>
+    </div>
+
+    <!-- 状态卡片 -->
+    <div class="mt-10 w-full max-w-sm shimmer rounded-xl border border-white/8 bg-white/3 p-4 flex items-center gap-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center">
+        <svg class="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z" />
+        </svg>
+      </div>
+      <div class="text-left">
+        <div class="text-sm font-medium text-white">正在恢复中</div>
+        <div class="text-xs text-gray-500 mt-0.5">预计将在近期重新上线，感谢耐心等待</div>
+      </div>
+    </div>
+
+    <!-- 分割线 -->
+    <div class="divider-line w-32 h-px my-10"></div>
+
+    <!-- 微信联系区域 -->
+    <div class="w-full max-w-xs">
+      <p class="text-sm text-gray-400 mb-6">
+        如对练习网站的内容有需要，欢迎扫码联系微信
+      </p>
+
+      <!-- 二维码卡片 -->
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-5 glow-ring">
+        <img
+          src="IMG_8105.JPG"
+          alt="微信二维码 — 青南"
+          class="w-full rounded-xl"
+          style="max-width: 220px; margin: 0 auto; display: block;"
+        />
+        <div class="mt-4 flex items-center justify-center gap-2 text-gray-400 text-xs">
+          <svg class="w-4 h-4 text-green-400" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8.867 4.667c-2.4 0-4.4 1.6-4.4 3.6 0 1.2.667 2.267 1.733 2.933l-.533 1.6 1.733-.933c.467.133.933.2 1.467.2 2.4 0 4.4-1.6 4.4-3.6s-2-3.8-4.4-3.8zm-1.4 4.533c-.333 0-.6-.267-.6-.6s.267-.6.6-.6.6.267.6.6-.267.6-.6.6zm2.8 0c-.333 0-.6-.267-.6-.6s.267-.6.6-.6.6.267.6.6-.267.6-.6.6zM15.867 9.333c-1.867 0-3.4 1.267-3.4 2.8 0 1.533 1.533 2.8 3.4 2.8.4 0 .8-.067 1.133-.2l1.333.733-.4-1.2c.8-.533 1.333-1.333 1.333-2.133 0-1.533-1.533-2.8-3.4-2.8zm-1.133 3.467c-.267 0-.467-.2-.467-.467s.2-.467.467-.467.467.2.467.467-.2.467-.467.467zm2.267 0c-.267 0-.467-.2-.467-.467s.2-.467.467-.467.467.2.467.467-.2.467-.467.467z"/>
+          </svg>
+          <span>扫一扫上面的二维码，加我为朋友</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 底部 -->
+  <footer class="border-t border-white/5 mt-10">
+    <div class="max-w-4xl mx-auto px-6 py-5 flex items-center justify-center">
+      <p class="text-xs text-gray-600 code-tag">
+        © 青南 &nbsp;·&nbsp; 《Python爬虫开发，从入门到实战》配套练习网站
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
